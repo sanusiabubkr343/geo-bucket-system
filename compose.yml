@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: expertlisting_db
+    environment:
+      POSTGRES_DB: expertlisting
+      POSTGRES_USER: expertuser
+      POSTGRES_PASSWORD: expertpass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U expertuser -d expertlisting"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build: .
+    container_name: expertlisting_web
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgis://expertuser:expertpass@db:5432/expertlisting
+      - DEBUG=True
+      - SECRET_KEY=your-secret-key-here-change-in-production
+      - ALLOWED_HOSTS=localhost,127.0.0.1,web
+      - GDAL_LIBRARY_PATH=/usr/lib/libgdal.so
+      - GEOS_LIBRARY_PATH=/usr/lib/libgeos_c.so
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
