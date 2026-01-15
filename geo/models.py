@@ -18,6 +18,7 @@ class GeoBucket(models.Model):
             gis_models.Index(fields=["center"]),
             models.Index(fields=["normalized_name"]),
         ]
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.name

@@ -25,6 +25,8 @@ class Property(models.Model):
             gis_models.Index(fields=["location"]),
             models.Index(fields=["geo_bucket"]),
         ]
+        ordering = ['-created_at']
 
     def __str__(self):
         return self.title
+
