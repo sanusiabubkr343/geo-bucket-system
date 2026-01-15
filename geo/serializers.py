@@ -18,12 +18,43 @@ class GeoBucketSerializer(serializers.ModelSerializer):
         return obj.properties.count()
 
 
-class BucketStatsSerializer(serializers.Serializer):
-    total_buckets = serializers.IntegerField()
-    total_properties = serializers.IntegerField()
-    avg_properties_per_bucket = serializers.FloatField()
-    buckets = serializers.ListField(child=serializers.DictField())
 
+
+class BucketStatsSerializer(serializers.Serializer):
+    """Serializer for bucket statistics response"""
+
+    # Summary section
+    summary = serializers.DictField()
+
+    # Efficiency metrics
+    efficiency_metrics = serializers.ListField(
+        child=serializers.DictField()
+    )
+
+    # Coverage metrics
+    coverage_metrics = serializers.DictField()
+
+    # Extreme buckets
+    extreme_buckets = serializers.DictField()
+
+    # Bucket details
+    buckets = serializers.ListField(
+        child=serializers.DictField(),
+        required=False
+    )
+
+    # Metadata
+    time_period = serializers.CharField(
+        required=False,
+        allow_null=True
+    )
+    timestamp = serializers.DateTimeField()
+
+    class Meta:
+        fields = [
+            'summary', 'efficiency_metrics', 'coverage_metrics',
+            'extreme_buckets', 'buckets', 'time_period', 'timestamp'
+        ]
 
 class BucketDetailSerializer(GeoBucketSerializer):
     """Detailed serializer for single bucket view"""
@@ -33,8 +64,3 @@ class BucketDetailSerializer(GeoBucketSerializer):
         fields = GeoBucketSerializer.Meta.fields + ['properties']
 
 
-class SimilarBucketSerializer(serializers.Serializer):
-    """Serializer for similar buckets response"""
-    current_bucket = serializers.DictField()
-    similar_buckets_count = serializers.IntegerField()
-    similar_buckets = serializers.ListField(child=serializers.DictField())
