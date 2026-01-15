@@ -1,39 +1,59 @@
-dj-config-url
+# Core Django
 Django~=5.2.10
-pillow~=12.1.0
-pip~=25.1.1
-attrs~=25.4.0
-factory_boy~=3.3.3
-PyYAML~=6.0.3
-Faker~=40.1.2
-pytest~=9.0.2
 asgiref~=3.11.0
 sqlparse~=0.5.5
+django-debug-toolbar~=6.1.0
+
+# Database
 psycopg2-binary~=2.9.11
+dj-database-url
+
+# REST Framework
+djangorestframework~=3.16.1
+django-filter~=25.2
+djangorestframework_simplejwt~=5.5.1
+drf-spectacular~=0.29.0
+
+# Images & Media
+pillow~=12.1.0
+cloudinary~=1.44.1
+
+# HTTP/API
 requests~=2.32.5
-Pygments~=2.19.2
-pluggy~=1.6.0
-iniconfig~=2.3.0
-certifi~=2026.1.4
 urllib3~=2.6.3
-gunicorn~=23.0.0
-packaging~=25.0
 idna~=3.11
 charset-normalizer~=3.4.4
-cloudinary~=1.44.1
-six~=1.17.0
+certifi~=2026.1.4
+django-cors-headers~=4.9.0
+
+# Testing
+pytest~=9.0.2
+pytest-mock~=3.15.1
+factory-boy~=3.3.3
+Faker~=40.1.2
+attrs~=25.4.0
+pluggy~=1.6.0
+iniconfig~=2.3.0
+PyYAML~=6.0.3
+
+# JSON Schema
 jsonschema~=4.26.0
 referencing~=0.37.0
 jsonschema-specifications~=2025.9.1
-whitenoise~=6.11.0
-django-cors-headers~=4.9.0
-pytest-mock~=3.15.1
 uritemplate~=4.2.0
-django-debug-toolbar~=6.1.0
-django-filter~=25.2
-djangorestframework~=3.16.1
+
+# Misc utilities
 inflection~=0.5.1
-drf-spectacular~=0.29.0
+Pygments~=2.19.2
 PyJWT~=2.10.1
-djangorestframework_simplejwt~=5.5.1
-dj_database_url
+six~=1.17.0
+packaging~=25.0
+
+# Static files
+whitenoise~=6.11.0
+
+# Production server
+gunicorn~=23.0.0
+
+#Enviroment
+python-dotenv  #

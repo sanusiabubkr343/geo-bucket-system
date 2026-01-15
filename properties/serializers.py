@@ -4,6 +4,9 @@ from .services.geo_bucket import find_or_create_bucket_improved
 
 
 class PropertySerializer(serializers.ModelSerializer):
+    lat = serializers.FloatField(write_only=True)
+    lng = serializers.FloatField(write_only=True)
+
     class Meta:
         model = Property
         fields = [
@@ -12,8 +15,6 @@ class PropertySerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['geo_bucket', 'created_at']
 
-    lat = serializers.FloatField(write_only=True)
-    lng = serializers.FloatField(write_only=True)
 
     def validate(self, attrs):
         lat = attrs['lat']
