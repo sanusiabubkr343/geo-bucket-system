@@ -91,3 +91,9 @@ python manage.py shell < seed.py
 
 # Or run in Docker
 docker compose exec web python manage.py shell < seed.py
+
+# Run inside web container fot Test
+docker compose exec web pytest
+
+# With coverage
+docker compose exec web pytest --cov=.
