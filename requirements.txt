@@ -57,3 +57,4 @@ gunicorn~=23.0.0
 
 #Enviroment
 python-dotenv  #
+drf-spectacular

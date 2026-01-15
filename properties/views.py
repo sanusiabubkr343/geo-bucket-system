@@ -1,12 +1,14 @@
 from django.contrib.gis.db.models.functions import Distance
 from django.contrib.gis.geos import Point
 from django.db.models import Q
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
 from core.common.pagination import CustomBucketPagination
+from .filters import PropertiesFilter
 from .models import Property
 from .serializers import PropertySerializer, PropertySearchSerializer
 from .services.location_matcher import normalize_location_name
@@ -21,10 +23,11 @@ class PropertyViewSet(viewsets.ModelViewSet):
     queryset = Property.objects.all().select_related('geo_bucket')
     serializer_class = PropertySerializer
     pagination_class = CustomBucketPagination
-    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['title', 'location_name', 'geo_bucket__name']
-    ordering_fields = ['price', 'bedrooms', 'bathrooms', 'created_at']
-    ordering = ['-created_at']
+    filter_backends = [DjangoFilterBackend,
+                       filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = PropertiesFilter
+    ordering_fields = ["created_at", "updated_at"]
+    http_method_names = ['get', 'post']
 
     def create(self, request, *args, **kwargs):
         """

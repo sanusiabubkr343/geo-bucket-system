@@ -41,7 +41,13 @@ else
 fi
 
 # Run database migrations if needed
-if [ "$1" = "gunicorn" ] || [ "$1" = "python" ] && [ "$2" = "manage.py" ]; then
+if [ "$1" = "gunicorn" ] || { [ "$1" = "python" ] && [ "$2" = "manage.py" ]; }; then
+    echo "Checking for new migrations..."
+    python manage.py makemigrations --check --dry-run || echo "No new migrations detected or makemigrations check failed"
+
+    echo "Making migrations..."
+    python manage.py makemigrations --no-input || echo "Makemigrations failed, continuing..."
+
     echo "Running database migrations..."
     python manage.py migrate --no-input || echo "Migrations failed, continuing..."
 fi

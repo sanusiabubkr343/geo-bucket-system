@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'geo',
     'properties',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,24 @@ TEMPLATES = [
         },
     },
 ]
+SPECTACULAR_SETTINGS = {
+    "SCHEMA_PATH_PREFIX": r"/api/v1",
+    "DEFAULT_GENERATOR_CLASS": "drf_spectacular.generators.SchemaGenerator",
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.AllowAny"],
+    "COMPONENT_SPLIT_PATCH": True,
+    "COMPONENT_SPLIT_REQUEST": True,
+    "SWAGGER_UI_SETTINGS": {
+        "deepLinking": True,
+        "persistAuthorization": True,
+        "displayOperationId": True,
+    },
+    "UPLOADED_FILES_USE_URL": True,
+    "TITLE": "GOE_BUCKET-API",
+    "DESCRIPTION": "GOE_BUCKET-API",
+    "VERSION": "1.0.0",
+    "LICENCE": {"name": "BSD License"},
+    "CONTACT": {"name": "Sanusi ", "email": "sanusiabubakr343@gmail.com"},
+}
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
@@ -131,4 +150,5 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ],
+'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }

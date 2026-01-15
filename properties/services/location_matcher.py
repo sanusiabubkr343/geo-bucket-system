@@ -58,6 +58,15 @@ COMMON_SUFFIXES: Set[str] = {
     # Commercial/industrial
     'industrial', 'commercial', 'business', 'trade',
     'market', 'shop', 'store', 'mall', 'plaza'
+
+    'gra', 'phase', '1', '2', '3', '4', 'central', 'business', 'district', 'cbd',
+    'estate', 'layout', 'area', 'zone', 'ward', 'extension',
+
+    # Directional
+    'north', 'south', 'east', 'west', 'central', 'main', 'new', 'old',
+
+    # Property types
+    'residential', 'commercial', 'industrial', 'mixed'
 }
 
 OBVIOUS_STOP_WORDS: Set[str] = {
