@@ -18,11 +18,11 @@ ENV GEOS_LIBRARY_PATH=/usr/lib/libgeos_c.so
 WORKDIR /app
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY ../requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project files
-COPY . .
+COPY .. .
 
 # Create a non-root user to run the app
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
