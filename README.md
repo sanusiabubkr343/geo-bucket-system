@@ -83,3 +83,11 @@ GET /api/geo-buckets/stats/ - Get bucket statistics
 GET /api/geo-buckets/{id}/properties/ - Get properties in bucket
 
 GET /api/geo-buckets/{id}/similar/ - Find similar buckets
+
+You can also run the command below to seed data for testing:
+Save as seed.py in your project root
+````
+python manage.py shell < seed.py
+
+# Or run in Docker
+docker compose exec web python manage.py shell < seed.py
